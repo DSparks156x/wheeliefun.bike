@@ -30,7 +30,7 @@ import GlitchText from './components/GlitchText';
 function App() {
   const [showSupportButton, setShowSupportButton] = React.useState(false);
   return (
-    <div className="min-h-screen bg-brand-darker text-white selection:bg-brand selection:text-black">
+    <div className="min-h-screen bg-brand-darker text-white selection:bg-brand selection:text-black overflow-x-hidden">
       <NoiseOverlay />
       <Navbar />
 
@@ -91,7 +91,7 @@ function App() {
         <WheelieButtonDemo />
 
         {/* Design / Side Profile Section */}
-        <section id="bike" className="py-24 bg-brand-darker relative">
+        <section id="bike" className="py-24 bg-brand-darker relative overflow-hidden">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-brand/5 skew-x-[-20deg] pointer-events-none" />
           <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row-reverse items-center gap-12">
             <div className="flex-1 text-right">
