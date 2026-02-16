@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Power } from 'lucide-react';
 
 const WheelieButtonDemo = () => {
     const [isWheelie, setIsWheelie] = useState(false);
-    const [angle, setAngle] = useState(0);
 
     const handlePress = () => {
         setIsWheelie(true);
-        setAngle(45); // Target wheelie angle
     };
 
     const handleRelease = () => {
         setIsWheelie(false);
-        setAngle(0);
     };
 
     return (
@@ -35,7 +32,7 @@ const WheelieButtonDemo = () => {
 
                     <div className="relative w-full max-w-lg aspect-[4/3] flex items-end justify-center">
                         <motion.img
-                            src="bike_side.png"
+                            src="wheelie_sim_bike.png"
                             alt="Wheelie Fun Bike Side Profile"
                             className="w-full h-auto origin-bottom-left drop-shadow-2xl"
                             animate={{ rotate: isWheelie ? -45 : 0, translateY: isWheelie ? -20 : 0 }}

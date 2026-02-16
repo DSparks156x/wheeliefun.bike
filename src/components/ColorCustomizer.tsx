@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Palette } from 'lucide-react';
 
@@ -39,7 +39,7 @@ const ColorCustomizer = () => {
                         />
 
                         <motion.img
-                            src="bike_side.png"
+                            src="color_customizer_bike.png"
                             alt="Custom Color WheelieFunBike"
                             className="w-full h-auto drop-shadow-2xl relative z-10"
                             style={{ filter: `hue-rotate(${hue}deg)` }}
