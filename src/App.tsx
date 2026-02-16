@@ -15,8 +15,8 @@ const Footer = () => (
       <div className="text-2xl font-display font-black italic tracking-tighter text-white mb-4 md:mb-0">
         WHELIE<span className="text-brand">FUN</span>
       </div>
-      <div className="text-gray-500 text-sm">
-        © 2026 WheelieFunBike. All rights reserved. Designed in California.
+      <div className="text-gray-500 text-sm text-right">
+        © 2026 WheelieFunBike, A CowPowerCompany. Designed in San Fransisco Bay, Xiaomi, China.
       </div>
     </div>
   </footer>
