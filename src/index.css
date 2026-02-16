@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-darker text-white font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  }
+
+  @keyframes noise {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    10% {
+      transform: translate(-5%, -5%);
+    }
+
+    20% {
+      transform: translate(-10%, 5%);
+    }
+
+    30% {
+      transform: translate(5%, -10%);
+    }
+
+    40% {
+      transform: translate(-5%, 15%);
+    }
+
+    50% {
+      transform: translate(-10%, 5%);
+    }
+
+    60% {
+      transform: translate(15%, 0);
+    }
+
+    70% {
+      transform: translate(0, 10%);
+    }
+
+    80% {
+      transform: translate(-15%, 0);
+    }
+
+    90% {
+      transform: translate(10%, 5%);
+    }
+  }
+
+  .animate-noise {
+    animation: noise 0.2s infinite;
+  }
+
+  @keyframes glitch {
+    0% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+      transform: translate(0, 0);
+    }
+
+    2% {
+      clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+      transform: translate(-2px, 0);
+    }
+
+    4% {
+      clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
+      transform: translate(2px, 0);
+    }
+
+    6% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      transform: translate(0, 0);
+    }
+
+    8% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform: translate(2px, 0);
+    }
+
+    10% {
+      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
+      transform: translate(0, 0);
+    }
+
+    100% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform: translate(0, 0);
+    }
+  }
+
+  .animate-glitch {
+    animation: glitch 2.5s infinite linear alternate-reverse;
+  }
+}
