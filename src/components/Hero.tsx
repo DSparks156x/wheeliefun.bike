@@ -40,7 +40,7 @@ const Hero = () => {
                         <span className="font-bold tracking-widest uppercase text-sm">The Ultimate Wheelie Machine</span>
                     </div>
 
-                    <h1 className="text-7xl md:text-8xl font-display font-black italic uppercase leading-none mb-6">
+                    <h1 className="text-6xl md:text-8xl font-display font-black italic uppercase leading-none mb-6">
                         Pop It.<br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-secondary text-glow">Lock It.</span><br />
                         Send It.

@@ -16,7 +16,7 @@ const Footer = () => (
         WHELIE<span className="text-brand">FUN</span>
       </div>
       <div className="text-gray-500 text-sm text-right">
-        © 2026 WheelieFunBike, A CowPowerCompany. Designed in San Fransisco Bay, Xiaomi, China.
+        © 2026 WheelieFunBike, A CowPowerCompany. Designed in San Francisco Bay, Xiaomi, China.
       </div>
     </div>
   </footer>
@@ -42,7 +42,7 @@ function App() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="mb-16 text-center">
               <h2 className="text-5xl md:text-7xl font-display font-black italic uppercase mb-6">
-                Specs That <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-white"><GlitchText text="Kill." /></span>
+                Specs That <span className="text-brand"><GlitchText text="Kill." /></span>
               </h2>
             </div>
 
@@ -155,7 +155,7 @@ function App() {
                     onChange={(e) => {
                       if (e.target.value) setShowSupportButton(true);
                     }}
-                    className="bg-black border-2 border-brand text-brand font-bold italic text-xl px-12 py-4 uppercase tracking-wider cursor-pointer outline-none hover:bg-gray-900 transition-colors appearance-none text-center min-w-[300px]"
+                    className="bg-black border-2 border-brand text-brand font-bold italic text-xl px-12 py-4 uppercase tracking-wider cursor-pointer outline-none hover:bg-gray-900 transition-colors appearance-none text-center w-full max-w-[400px]"
                     defaultValue=""
                   >
                     <option value="" disabled>Choose...</option>
