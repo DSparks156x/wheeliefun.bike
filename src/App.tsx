@@ -139,9 +139,10 @@ function App() {
             <h2 className="text-4xl md:text-5xl font-display font-black italic uppercase mb-6">
               World Class <span className="text-brand">Support</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-400 mb-8 leading-relaxed max-w-2xl mx-auto">
               Our high quality American based support agents value all our customers and strive to help them with whatever they need.
-              We're here 24/7/365 to ensure your wheelies never stop.
+              We're here 24/7/365 to ensure your wheelies never stop. Plus, every bike comes with our
+              <span className="text-brand font-bold"> not at all limited 6.7 year lifetime warranty</span>.
             </p>
             <a
               href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
