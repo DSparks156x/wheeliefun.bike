@@ -155,7 +155,7 @@ function App() {
                     onChange={(e) => {
                       if (e.target.value) setShowSupportButton(true);
                     }}
-                    className="bg-black border-2 border-brand text-brand font-bold italic text-xl px-12 py-4 uppercase tracking-wider cursor-pointer outline-none hover:bg-brand/10 transition-colors appearance-none text-center min-w-[300px]"
+                    className="bg-black border-2 border-brand text-brand font-bold italic text-xl px-12 py-4 uppercase tracking-wider cursor-pointer outline-none hover:bg-gray-900 transition-colors appearance-none text-center min-w-[300px]"
                     defaultValue=""
                   >
                     <option value="" disabled>Choose...</option>
