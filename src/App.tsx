@@ -28,6 +28,7 @@ import GlitchText from './components/GlitchText';
 // ... (Footer remains same)
 
 function App() {
+  const [showSupportButton, setShowSupportButton] = React.useState(false);
   return (
     <div className="min-h-screen bg-brand-darker text-white selection:bg-brand selection:text-black">
       <NoiseOverlay />
@@ -144,14 +145,37 @@ function App() {
               We're here 24/7/365 to ensure your wheelies never stop. Plus, every bike comes with our
               <span className="text-brand font-bold"> not at all limited 6.7 year lifetime warranty</span>.
             </p>
-            <a
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-brand text-brand-darker font-black italic text-xl px-12 py-4 hover:bg-white transition-colors uppercase tracking-wider transform hover:-skew-x-12"
-            >
-              Contact Support
-            </a>
+            {!showSupportButton ? (
+              <div className="relative inline-block text-left">
+                <select
+                  onChange={(e) => {
+                    if (e.target.value) setShowSupportButton(true);
+                  }}
+                  className="bg-brand-darker border-2 border-brand text-brand font-bold italic text-xl px-12 py-4 uppercase tracking-wider cursor-pointer outline-none hover:bg-brand/10 transition-colors appearance-none text-center"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Choose...</option>
+                  <option value="baby">I'm a big baby</option>
+                  <option value="lonely">Lonely (need box for comfort)</option>
+                  <option value="skill">Skill issue</option>
+                  <option value="scared">Too fast, I'm scared</option>
+                  <option value="manual">Can't read manual</option>
+                  <option value="tire">Tire is round, help</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand">
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                </div>
+              </div>
+            ) : (
+              <a
+                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-brand text-brand-darker font-black italic text-xl px-12 py-4 hover:bg-white transition-colors uppercase tracking-wider transform hover:-skew-x-12 animate-bounce"
+              >
+                Contact Support
+              </a>
+            )}
           </div>
         </section>
 
