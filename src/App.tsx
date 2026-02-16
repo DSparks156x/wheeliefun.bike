@@ -134,6 +134,26 @@ function App() {
 
         <ColorCustomizer />
 
+        <section id="support" className="py-24 bg-brand-darker relative overflow-hidden border-t border-white/5">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-4xl md:text-5xl font-display font-black italic uppercase mb-6">
+              World Class <span className="text-brand">Support</span>
+            </h2>
+            <p className="text-xl text-gray-400 mb-8 leading-relaxed">
+              Our high quality American based support agents value all our customers and strive to help them with whatever they need.
+              We're here 24/7/365 to ensure your wheelies never stop.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-brand text-brand-darker font-black italic text-xl px-12 py-4 hover:bg-white transition-colors uppercase tracking-wider transform hover:-skew-x-12"
+            >
+              Contact Support
+            </a>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
