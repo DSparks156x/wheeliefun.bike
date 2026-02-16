@@ -51,15 +51,7 @@ const Hero = () => {
                         Self-balancing technology meets 6700W of raw power.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-start gap-4">
-                        <button className="group bg-brand text-brand-darker px-8 py-4 font-black uppercase tracking-wider flex items-center gap-2 hover:bg-white transition-all hover:scale-105 skew-x-[-10deg]">
-                            <span className="skew-x-[10deg]">Pre-Order V1</span>
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform skew-x-[10deg]" />
-                        </button>
-                        <button className="px-8 py-4 border border-white/20 hover:bg-white/10 font-bold uppercase tracking-wider transition-all skew-x-[-10deg] backdrop-blur-sm bg-black/20 text-white">
-                            <span className="block skew-x-[10deg]">Watch The Film</span>
-                        </button>
-                    </div>
+                    <CountdownButton />
                 </motion.div>
             </div>
 
@@ -80,6 +72,60 @@ const Hero = () => {
                 </div>
             </div>
         </section>
+    );
+};
+
+const CountdownButton = () => {
+    const [targetDate, setTargetDate] = React.useState<Date>(new Date());
+    const [timeLeft, setTimeLeft] = React.useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+    // Function to generate a random date ~50 days out (+- 35)
+    const generateRandomDate = () => {
+        const baseDays = 50;
+        const variance = 35;
+        const randomDays = baseDays + (Math.random() * variance * 2 - variance);
+        const now = new Date();
+        const futureDate = new Date(now.getTime() + randomDays * 24 * 60 * 60 * 1000);
+        return futureDate;
+    };
+
+    // Randomize target date every 10 seconds
+    React.useEffect(() => {
+        setTargetDate(generateRandomDate()); // Initial set
+        const interval = setInterval(() => {
+            setTargetDate(generateRandomDate());
+        }, 10000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Update countdown timer every second
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date();
+            const difference = targetDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                setTimeLeft({
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    minutes: Math.floor((difference / 1000 / 60) % 60),
+                    seconds: Math.floor((difference / 1000) % 60),
+                });
+            }
+        }, 100); // Fast update
+        return () => clearInterval(timer);
+    }, [targetDate]);
+
+    return (
+        <button className="group bg-brand text-brand-darker px-8 py-4 font-black uppercase tracking-wider flex items-center gap-4 hover:bg-white transition-all hover:scale-105 skew-x-[-10deg] min-w-[300px]">
+            <div className="text-left skew-x-[10deg]">
+                <div className="text-xs font-bold opacity-70 mb-1">Estimated Post-Order</div>
+                <div className="text-2xl font-mono leading-none">
+                    {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s
+                </div>
+            </div>
+            <ArrowRight className="w-8 h-8 group-hover:translate-x-1 transition-transform skew-x-[10deg] ml-auto" />
+        </button>
     );
 };
 

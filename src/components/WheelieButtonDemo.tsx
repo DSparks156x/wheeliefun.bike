@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Power } from 'lucide-react';
+import { Canvas } from '@react-three/fiber';
+import { BikeModel } from './BikeModel';
 
 const WheelieButtonDemo = () => {
     const [isWheelie, setIsWheelie] = useState(false);
@@ -21,7 +23,7 @@ const WheelieButtonDemo = () => {
             <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
 
                 {/* Interactive Bike Visual */}
-                <div className="flex-1 w-full flex justify-center items-center py-10 relative">
+                <div className="flex-1 w-full flex justify-center items-center relative min-h-[400px] md:min-h-[600px] bg-white/5 rounded-3xl overflow-hidden border border-white/10">
                     {/* Angle Indicator */}
                     <motion.div
                         animate={{ opacity: isWheelie ? 1 : 0 }}
@@ -30,18 +32,9 @@ const WheelieButtonDemo = () => {
                         {isWheelie ? '45.0°' : '0.0°'}
                     </motion.div>
 
-                    <div className="relative w-full max-w-lg aspect-[4/3] flex items-end justify-center">
-                        <motion.img
-                            src="wheelie_sim_bike.png"
-                            alt="Wheelie Fun Bike Side Profile"
-                            className="w-full h-auto origin-bottom-left drop-shadow-2xl"
-                            animate={{ rotate: isWheelie ? -45 : 0, translateY: isWheelie ? -20 : 0 }}
-                            transition={{ type: "spring", stiffness: 100, damping: 15 }}
-                        />
-
-                        {/* Ground Line */}
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 rounded-full" />
-                    </div>
+                    <Canvas shadows className="w-full h-full" style={{ position: 'absolute', top: 0, left: 0 }}>
+                        <BikeModel isWheelie={isWheelie} />
+                    </Canvas>
                 </div>
 
                 {/* Controls */}
