@@ -15,10 +15,10 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(three@0.182.0)
       '@react-three/drei':
-        specifier: 10.7.7
+        specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.4.2(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.182.0))(@types/react@19.2.7)(@types/three@0.182.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.182.0)
       '@react-three/fiber':
-        specifier: 9.4.2
+        specifier: ^9.4.2
         version: 9.4.2(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.182.0)
       clsx:
         specifier: ^2.1.1
@@ -48,7 +48,7 @@ importers:
         specifier: ^2.6.1
         version: 2.6.1
       three:
-        specifier: 0.182.0
+        specifier: ^0.182.0
         version: 0.182.0
       three-stdlib:
         specifier: ^2.36.1
@@ -67,7 +67,7 @@ importers:
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.7)
       '@types/three':
-        specifier: 0.182.0
+        specifier: ^0.182.0
         version: 0.182.0
       '@vitejs/plugin-react':
         specifier: ^4.3.1
