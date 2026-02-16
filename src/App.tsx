@@ -24,15 +24,17 @@ const Footer = () => (
 
 import NoiseOverlay from './components/NoiseOverlay';
 import GlitchText from './components/GlitchText';
+import WarningBanner from './components/WarningBanner';
 
 // ... (Footer remains same)
 
 function App() {
   const [showSupportButton, setShowSupportButton] = React.useState(false);
   return (
-    <div className="min-h-screen bg-brand-darker text-white selection:bg-brand selection:text-black overflow-x-hidden">
-      <NoiseOverlay />
+    <div className="min-h-screen bg-brand-darker text-white selection:bg-brand selection:text-black overflow-x-hidden pt-[68px] lg:pt-[44px]">
+      <WarningBanner />
       <Navbar />
+      <NoiseOverlay />
 
       <main>
         <Hero />
