@@ -3,11 +3,21 @@ import { Power } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { BikeModel } from './BikeModel';
 
-const WheelieButtonDemo = () => {
+const WheelieButtonDemo = ({
+    modelPath,
+    modelScale,
+    modelPosition,
+    modelRotation
+}: {
+    modelPath?: string;
+    modelScale?: number;
+    modelPosition?: [number, number, number];
+    modelRotation?: [number, number, number];
+}) => {
     const wheelieProgress = useMotionValue(0);
     const angleDisplay = useTransform(wheelieProgress, [0, 1], ['0.0°', '45.0°']);
-    const modeDisplay = useTransform(wheelieProgress, (v) => v > 0.5 ? 'ACTIVE' : 'STANDBY');
-    const buttonText = useTransform(wheelieProgress, (v) => v > 0.5 ? 'WHEELIE ENGAGED' : 'HOLD TO WHEELIE');
+    const modeDisplay = useTransform(wheelieProgress, (v) => (v > 0.5 ? 'ACTIVE' : 'STANDBY') as string);
+    const buttonText = useTransform(wheelieProgress, (v) => (v > 0.5 ? 'WHEELIE ENGAGED' : 'HOLD TO WHEELIE') as string);
     const isWheelieActive = useMotionValue(false);
 
     const handlePress = () => {
@@ -38,7 +48,13 @@ const WheelieButtonDemo = () => {
                     </motion.div>
 
                     <Canvas shadows className="w-full h-full" style={{ position: 'absolute', top: 0, left: 0 }}>
-                        <BikeModel wheelieProgress={wheelieProgress} />
+                        <BikeModel
+                            wheelieProgress={wheelieProgress}
+                            modelPath={modelPath}
+                            modelScale={modelScale}
+                            modelPosition={modelPosition}
+                            modelRotation={modelRotation}
+                        />
                     </Canvas>
                 </div>
 

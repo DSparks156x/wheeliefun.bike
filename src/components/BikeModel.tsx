@@ -6,10 +6,20 @@ import { MotionValue } from 'framer-motion';
 
 interface BikeModelProps {
     wheelieProgress: MotionValue<number>;
+    modelPath?: string;
+    modelScale?: number;
+    modelPosition?: [number, number, number];
+    modelRotation?: [number, number, number];
 }
 
-export function BikeModel({ wheelieProgress }: BikeModelProps) {
-    const { scene } = useGLTF('/bike.glb');
+export function BikeModel({
+    wheelieProgress,
+    modelPath = '/bike.glb',
+    modelScale = 3.5,
+    modelPosition = [1, 0, 0],
+    modelRotation = [0, 0, 0]
+}: BikeModelProps) {
+    const { scene } = useGLTF(modelPath);
     const bikeRef = useRef<THREE.Group>(null);
     const cameraRef = useRef<THREE.PerspectiveCamera>(null);
 
@@ -92,8 +102,9 @@ export function BikeModel({ wheelieProgress }: BikeModelProps) {
                     <group ref={bikeRef} position={[0, 0.0, 0]}>
                         <primitive
                             object={scene}
-                            scale={3.5}
-                            position={[1, 0, 0]} // Shifted to put rear wheel at 0,0,0 pivot
+                            scale={modelScale}
+                            position={modelPosition} // Shifted to put rear wheel at 0,0,0 pivot
+                            rotation={modelRotation}
                         />
                     </group>
                 </group>
@@ -106,3 +117,4 @@ export function BikeModel({ wheelieProgress }: BikeModelProps) {
 }
 
 useGLTF.preload('/bike.glb');
+useGLTF.preload('/Untitled.glb');
