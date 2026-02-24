@@ -2,12 +2,13 @@ import { useRef, useEffect } from 'react';
 import { useGLTF, PerspectiveCamera, Environment, ContactShadows, Float } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { MotionValue } from 'framer-motion';
 
 interface BikeModelProps {
-    isWheelie: boolean;
+    wheelieProgress: MotionValue<number>;
 }
 
-export function BikeModel({ isWheelie }: BikeModelProps) {
+export function BikeModel({ wheelieProgress }: BikeModelProps) {
     const { scene } = useGLTF('/bike.glb');
     const bikeRef = useRef<THREE.Group>(null);
     const cameraRef = useRef<THREE.PerspectiveCamera>(null);
@@ -30,19 +31,21 @@ export function BikeModel({ isWheelie }: BikeModelProps) {
     useFrame((state, delta) => {
         if (!bikeRef.current || !cameraRef.current) return;
 
+        const progress = wheelieProgress.get();
+
         // Current wheelie state target
-        const targetRotationX = isWheelie ? -Math.PI / 6 : 0;
-        const targetPosY = isWheelie ? 0.4 : 0;
+        const targetRotationX = THREE.MathUtils.lerp(0, -Math.PI / 6, progress);
+        const targetPosY = THREE.MathUtils.lerp(0, 0.4, progress);
 
         // Apply smooth rotation for the wheelie
         let bobbingRotation = 0;
         let bobbingPos = 0;
 
-        if (isWheelie) {
+        if (progress > 0.1) {
             // "Bobbing" math - subtle sine waves for life
             const time = state.clock.elapsedTime;
-            bobbingRotation = Math.sin(time * 8) * 0.04; // Fast subtle tremor
-            bobbingPos = Math.sin(time * 12) * 0.02;     // High frequency jitters
+            bobbingRotation = Math.sin(time * 8) * 0.04 * progress; // Fast subtle tremor
+            bobbingPos = Math.sin(time * 12) * 0.02 * progress;     // High frequency jitters
         }
 
         bikeRef.current.rotation.x = THREE.MathUtils.lerp(
@@ -57,10 +60,10 @@ export function BikeModel({ isWheelie }: BikeModelProps) {
         );
 
         // Dynamic Camera
-        const targetCamPos = new THREE.Vector3(
-            isWheelie ? 8 : 7,
-            isWheelie ? 2 : 1.5,
-            isWheelie ? 4 : 5
+        const targetCamPos = new THREE.Vector3().lerpVectors(
+            new THREE.Vector3(7, 1.5, 5),
+            new THREE.Vector3(8, 2, 4),
+            progress
         );
 
         state.camera.position.lerp(targetCamPos, delta * 3);
@@ -80,8 +83,8 @@ export function BikeModel({ isWheelie }: BikeModelProps) {
 
             <Float
                 speed={1}
-                rotationIntensity={isWheelie ? 0.2 : 0.05}
-                floatIntensity={isWheelie ? 0.5 : 0.1}
+                rotationIntensity={0.05 + wheelieProgress.get() * 0.15}
+                floatIntensity={0.1 + wheelieProgress.get() * 0.4}
             >
                 {/* Visual Orientation Group - meet in the middle at X:0.35 */}
                 <group rotation={[0, (3 * Math.PI) / 4, 0]} position={[-2.5, -1, 0.0]}>

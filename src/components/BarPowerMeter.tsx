@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
 
 const BarPowerMeter = () => {
     const spring = useSpring(0, { stiffness: 100, damping: 10 });
     const width = useTransform(spring, (value) => `${Math.min(value / 6700 * 100, 100)}%`);
     const displayValue = useTransform(spring, (value) => Math.round(value));
-    const [currentVal, setCurrentVal] = useState(0);
-
     useEffect(() => {
-        const unsubscribe = displayValue.on("change", (v) => setCurrentVal(v));
-
         // Jitter loop
         const interval = setInterval(() => {
             const target = 6700 + (Math.random() - 0.5) * 1000; // Fluctuates between 6200 and 7200
@@ -17,17 +13,16 @@ const BarPowerMeter = () => {
         }, 100);
 
         return () => {
-            unsubscribe();
             clearInterval(interval);
         };
-    }, [spring, displayValue]);
+    }, [spring]);
 
     return (
         <div className="w-full bg-brand-darker border border-white/10 p-6 rounded-lg">
             <div className="flex justify-between items-end mb-2">
                 <span className="text-brand font-bold uppercase tracking-widest text-xs animate-pulse">Inst. Power</span>
                 <span className="text-2xl font-display font-black italic text-white font-mono">
-                    {currentVal}<span className="text-sm text-gray-400 not-italic ml-1">W</span>
+                    <motion.span>{displayValue}</motion.span><span className="text-sm text-gray-400 not-italic ml-1">W</span>
                 </span>
             </div>
             <div className="h-4 bg-black/50 rounded-full overflow-hidden relative">

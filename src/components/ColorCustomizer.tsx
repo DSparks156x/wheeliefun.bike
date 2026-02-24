@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { Palette } from 'lucide-react';
 
 const ColorCustomizer = () => {
-    const [hue, setHue] = useState(0);
+    const hue = useMotionValue(0);
+    const hueString = useTransform(hue, (v) => `${Math.round(v)}°`);
+    const filterString = useTransform(hue, (v) => `hue-rotate(${v}deg)`);
+    const glowColor = useTransform(hue, (v) => `hsl(${v}, 100%, 50%)`);
 
     return (
         <section id="personalization" className="py-24 bg-brand-darker relative overflow-hidden">
@@ -33,16 +35,16 @@ const ColorCustomizer = () => {
                     {/* Bike Image Container */}
                     <div className="relative w-full max-w-2xl flex items-center justify-center mb-8">
                         {/* Glow effect behind the bike matching the hue */}
-                        <div
+                        <motion.div
                             className="absolute inset-0 blur-[80px] opacity-20 transition-colors duration-100"
-                            style={{ backgroundColor: `hsl(${hue}, 100%, 50%)` }}
+                            style={{ backgroundColor: glowColor }}
                         />
 
                         <motion.img
                             src="color_customizer_bike.png"
                             alt="Custom Color WheelieFunBike"
                             className="w-full h-auto drop-shadow-2xl relative z-10"
-                            style={{ filter: `hue-rotate(${hue}deg)` }}
+                            style={{ filter: filterString }}
                             initial={{ scale: 0.9, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.8 }}
@@ -54,14 +56,16 @@ const ColorCustomizer = () => {
                     <div className="w-full max-w-xl bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl relative z-20">
                         <div className="flex justify-between items-center mb-4">
                             <label className="text-white font-bold uppercase tracking-wider">Hue Shift</label>
-                            <span className="font-mono text-brand">{hue}°</span>
+                            <motion.span className="font-mono text-brand">{hueString}</motion.span>
                         </div>
                         <input
                             type="range"
                             min="0"
                             max="420"
-                            value={hue}
-                            onChange={(e) => setHue(Number(e.target.value))}
+                            defaultValue="0"
+                            onChange={(e) => {
+                                animate(hue, Number(e.target.value), { duration: 0.1 });
+                            }}
                             className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-brand"
                         />
                         <div className="flex justify-between mt-2 text-xs text-gray-500 font-mono">

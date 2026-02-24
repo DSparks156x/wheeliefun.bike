@@ -1,18 +1,23 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import { Power } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { BikeModel } from './BikeModel';
 
 const WheelieButtonDemo = () => {
-    const [isWheelie, setIsWheelie] = useState(false);
+    const wheelieProgress = useMotionValue(0);
+    const angleDisplay = useTransform(wheelieProgress, [0, 1], ['0.0°', '45.0°']);
+    const modeDisplay = useTransform(wheelieProgress, (v) => v > 0.5 ? 'ACTIVE' : 'STANDBY');
+    const buttonText = useTransform(wheelieProgress, (v) => v > 0.5 ? 'WHEELIE ENGAGED' : 'HOLD TO WHEELIE');
+    const isWheelieActive = useMotionValue(false);
 
     const handlePress = () => {
-        setIsWheelie(true);
+        isWheelieActive.set(true);
+        animate(wheelieProgress, 1, { duration: 0.5, ease: "easeOut" });
     };
 
     const handleRelease = () => {
-        setIsWheelie(false);
+        isWheelieActive.set(false);
+        animate(wheelieProgress, 0, { duration: 0.8, ease: "easeInOut" });
     };
 
     return (
@@ -26,22 +31,22 @@ const WheelieButtonDemo = () => {
                 <div className="flex-1 w-full flex justify-center items-center relative min-h-[400px] md:min-h-[600px] bg-white/5 rounded-3xl overflow-hidden border border-white/10">
                     {/* Angle Indicator */}
                     <motion.div
-                        animate={{ opacity: isWheelie ? 1 : 0 }}
+                        style={{ opacity: wheelieProgress }}
                         className="absolute top-10 right-10 text-brand font-mono font-bold text-xl"
                     >
-                        {isWheelie ? '45.0°' : '0.0°'}
+                        {angleDisplay}
                     </motion.div>
 
                     <Canvas shadows className="w-full h-full" style={{ position: 'absolute', top: 0, left: 0 }}>
-                        <BikeModel isWheelie={isWheelie} />
+                        <BikeModel wheelieProgress={wheelieProgress} />
                     </Canvas>
                 </div>
 
                 {/* Controls */}
                 <div className="flex-1 text-left">
                     <div className="flex items-center space-x-2 text-brand mb-4">
-                        <Power className={`w-5 h-5 ${isWheelie ? 'animate-pulse' : ''}`} />
-                        <span className="font-bold tracking-widest uppercase text-sm">Mode: {isWheelie ? 'ACTIVE' : 'STANDBY'}</span>
+                        <Power className="w-5 h-5" />
+                        <span className="font-bold tracking-widest uppercase text-sm">Mode: <motion.span>{modeDisplay}</motion.span></span>
                     </div>
 
                     <h2 className="text-4xl md:text-6xl font-display font-black italic uppercase mb-6 leading-none">
@@ -55,7 +60,7 @@ const WheelieButtonDemo = () => {
                     </p>
 
                     <div className="flex flex-col items-start gap-4">
-                        <button
+                        <motion.button
                             onMouseDown={handlePress}
                             onMouseUp={handleRelease}
                             onMouseLeave={handleRelease}
@@ -64,13 +69,18 @@ const WheelieButtonDemo = () => {
                             className={`
                     relative group px-10 py-6 font-black uppercase tracking-widest text-xl
                     transition-all duration-100 transform active:scale-95 skew-x-[-10deg]
-                    ${isWheelie ? 'bg-brand text-brand-darker shadow-[0_0_40px_rgba(204,255,0,0.6)]' : 'bg-white text-black hover:bg-gray-100'}
+                    bg-white text-black hover:bg-gray-100
                 `}
+                            style={{
+                                backgroundColor: useTransform(wheelieProgress, [0, 1], ['#ffffff', '#ccff00']),
+                                color: useTransform(wheelieProgress, [0, 1], ['#000000', '#0a0a0a']),
+                                boxShadow: useTransform(wheelieProgress, [0, 1], ['0 0 0px rgba(204,255,0,0)', '0 0 40px rgba(204,255,0,0.6)'])
+                            }}
                         >
                             <span className="block skew-x-[10deg] flex items-center gap-3">
-                                {isWheelie ? 'WHEELIE ENGAGED' : 'HOLD TO WHEELIE'}
+                                <motion.span>{buttonText}</motion.span>
                             </span>
-                        </button>
+                        </motion.button>
                         <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mt-2 ml-2">
                             * Simulated Experience. Do not attempt without helmet.
                         </p>
